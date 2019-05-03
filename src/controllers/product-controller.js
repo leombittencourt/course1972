@@ -60,7 +60,15 @@ exports.post = async (req, res, next) => {
     }
 
     try {
-        await repository.create(req.body);
+        await repository.create({
+            title: req.body.title,
+            slug: req.body.slug,
+            description: req.body.description,
+            price: req.body.price,
+            active: true,
+            tags: req.body.tags,
+            image: 'https://picsum.photos/id/237/200/300'
+        });
         res.status(201).send({ message: 'Produto cadastrado com sucesso!' });
     } catch (e) {
         res.status(500).send({
